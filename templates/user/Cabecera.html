@@ -3,23 +3,26 @@
     <!-- Logo de la empresa -->
     <div>
         <a href="/">
-            <img src="/Templates/Images/Logo0.jpg" alt="Logo Bytebooks" style="width: 85px; height: 75px; border-radius: 25%;">
+            <img src="/static/images/Logo0.jpg" alt="Logo Bytebooks" style="width: 85px; height: 75px; border-radius: 25%;">
         </a>
     </div>
 
     <!-- Menú de navegación -->
     <ul style="list-style: none; display: flex; margin: 0; padding: 0; justify-content: flex-start; flex-grow: 1;">
         <li style="margin: 0 15px;">
-            <a href="/User/" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Inicio</a>
+            <a href="{{ url_for('user.index') }}" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Inicio</a>
         </li>
         <li style="margin: 0 15px;">
-            <a href="/User/Libros" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Libros</a>
+            <a href="{{ url_for('user.view_books') }}" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Libros</a>
         </li>
         <li style="margin: 0 15px;">
-            <a href="/User/Ranking" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Ranking</a>
+            <a href="{{ url_for('user.book_likes') }}" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Ranking</a>
         </li>
         <li style="margin: 0 15px;">
-            <a href="/User/Nosotros" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Nosotros</a>
+            <a href="{{ url_for('user.user_nosotros') }}" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Nosotros</a>
+        </li>
+        <li style="margin: 0 15px;">
+            <a href="{{ url_for('byte.logout') }}" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Cerrar sesión</a>
         </li>
     </ul>
 </nav>

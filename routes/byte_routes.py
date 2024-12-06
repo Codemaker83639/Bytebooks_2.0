@@ -26,7 +26,7 @@ def login():
             session['user_id'] = user.id
             session['username'] = user.nombre  # Opcional: guarda el nombre del usuario
             flash('Inicio de sesión exitoso', 'success')
-            return redirect(url_for('byte.index'))  # Redirige a la función index del blueprint 'byte'
+            return redirect(url_for('user.index'))  # Redirige a la función index del blueprint 'byte'
         else:
             flash('Correo o contraseña incorrectos', 'danger')
 

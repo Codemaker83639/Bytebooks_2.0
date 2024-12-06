@@ -26,10 +26,13 @@ def index():
 
 
 
+
+
 @user_bp.route('/view_books')
 def view_books():
     libros = Libro.query.all()  # Suponiendo que has movido el modelo a Usuario
     return render_template('user/view_books.html', libros=libros)
+
 
 
 @user_bp.route('/like_book/<int:libro_id>', methods=['POST'])
@@ -66,6 +69,7 @@ def like_book(libro_id):
 
     # Redirige a la vista de libros después de la acción
     return redirect(url_for('user.view_books'))
+
 @user_bp.route('/book_likes', methods=['GET'])
 def book_likes():
     # Consulta para contar likes por libro
@@ -83,6 +87,7 @@ def book_likes():
 
     return render_template('book_likes.html', likes_by_book=likes_by_book)
 
+
 @user_bp.route('/view_comments/<int:libro_id>', methods=['GET'])
 def view_comments(libro_id):
     # Obtén el libro de la base de datos
@@ -92,6 +97,7 @@ def view_comments(libro_id):
     comentarios = Comentario.query.filter_by(id_libro=libro_id).all()
 
     return render_template('view_comments.html', libro=libro, comentarios=comentarios)
+
 
 @user_bp.route('/add_comment/<int:libro_id>', methods=['POST'])
 def add_comment(libro_id):
@@ -115,3 +121,10 @@ def add_comment(libro_id):
 
     flash("Comentario agregado con éxito.", 'success')
     return redirect(url_for('user.view_comments', libro_id=libro_id))
+
+
+@user_bp.route('/user_nosotros')
+def user_nosotros():
+    return render_template('user_nosotros.html')
+
+

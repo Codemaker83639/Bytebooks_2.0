@@ -63,4 +63,13 @@ def logout():
     flash('Has cerrado sesión', 'info')
     return redirect(url_for('byte.login'))
 
+@byte_bp.route('/welcome')
+def welcome():
+    return render_template('welcome.html')
+
+
+@byte_bp.route('/nosotros')
+def nosotros():
+    return render_template('nosotros.html')
+
 

@@ -68,6 +68,11 @@ def welcome():
     return render_template('welcome.html')
 
 
+@byte_bp.route('/byte_book_likes')
+def byte_book_likes():
+    return render_template('byte_book_likes.html')
+
+
 @byte_bp.route('/nosotros')
 def nosotros():
     return render_template('nosotros.html')

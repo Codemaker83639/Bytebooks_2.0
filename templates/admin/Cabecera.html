@@ -2,19 +2,23 @@
     <!-- Logo de la empresa -->
     <div>
         <a href="/">
-            <img src="/Templates/Images/Logo0.jpg" alt="Logo Bytebooks" style="width: 85px; height: 75px; border-radius: 25%;">
+            <img src="/static/images/Logo0.jpg" alt="Logo Bytebooks" style="width: 85px; height: 75px; border-radius: 25%;">
         </a>
     </div>
 
     <!-- Menú de navegación -->
     <ul style="list-style: none; display: flex; margin: 0; padding: 0; justify-content: flex-start; flex-grow: 1;">
         <li style="margin: 0 15px;">
-            <a href="/Admin/" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s; border-radius: 5px;" onmouseover="this.style.backgroundColor='#005a99'" onmouseout="this.style.backgroundColor='transparent'">Inicio</a>
+            <a href="{{ url_for('admin.dashboard') }}" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s; border-radius: 5px;" onmouseover="this.style.backgroundColor='#005a99'" onmouseout="this.style.backgroundColor='transparent'">Inicio</a>
         </li>
         <li style="margin: 0 15px;">
-            <a href="Libros" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s; border-radius: 5px;" onmouseover="this.style.backgroundColor='#005a99'" onmouseout="this.style.backgroundColor='transparent'">Gestion de Libros</a>
+            <a href="/admin/users" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Usuarios</a>
+        </li>
+        <li style="margin: 0 15px;">
+            <a href="/admin/add_book" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s; border-radius: 5px;" onmouseover="this.style.backgroundColor='#005a99'" onmouseout="this.style.backgroundColor='transparent'">Gestion de Libros</a>
+        </li>
             <li style="margin: 0 15px;">
-                <a href="/Admin/Ranking" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Ranking</a>
+                <a href="/admin/admin_book_likes" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Ranking</a>
             </li>
             <li style="margin: 0 15px;">
             <a href="/" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s; border-radius: 5px;" onmouseover="this.style.backgroundColor='#005a99'" onmouseout="this.style.backgroundColor='transparent'">Cerrar</a>

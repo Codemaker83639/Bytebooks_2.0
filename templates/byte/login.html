@@ -1,21 +1,92 @@
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+    <title>Inicio de Sesión</title>
+    <link rel="icon" href="/static/images/Logoi.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            background-image: url('/static/images/Fondo.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .table-container {
+            margin: 50px auto;
+            background-color: #f5f5dc;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid black;
+        }
+
+        .p-5.bg-light {
+            background-color: #f8f9fa;
+            border: 2px solid black;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        footer {
+            background-color: #004173;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: #004173;
+            border-color: #004173;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #005a99;
+            border-color: #005a99;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Inicia Sesión</h1>
-    <form method="post" action="{{ url_for('byte.login') }}">
-        <label for="correo">Correo:</label>
-        <input type="email" name="correo" id="correo" required>
-        <br>
-        <label for="password">Contraseña:</label>
-        <input type="password" name="password" id="password" required>
-        <br>
-        <button type="submit">Iniciar Sesión</button>
-    </form>
-    <p>¿No tienes cuenta? <a href="{{ url_for('byte.register') }}">Regístrate aquí</a></p>
+    {% include 'byte/Cabecera.html' %}
+    <br><br>
+
+    <div class="container table-container">
+        <div class="p-5 bg-light">
+            <div class="card">
+                <div class="card-header text-center bg-primary text-white">Inicio de Sesión</div>
+                <div class="card-body">
+                    <form method="post" action="{{ url_for('byte.login') }}">
+                        <label for="correo">Correo:</label>
+                        <input type="email" name="correo" id="correo" required>
+                        <br>
+                        <label for="password">Contraseña:</label>
+                        <input type="password" name="password" id="password" required>
+                        <br>
+                        <button type="submit">Iniciar Sesión</button>
+                    </form>
+                    <p>¿No tienes cuenta? <a href="{{ url_for('byte.register') }}">Regístrate aquí</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br><br><br><br><br>
+
+    {% include 'byte/Pie.html' %}
 </body>
+
 </html>
+

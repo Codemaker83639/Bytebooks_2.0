@@ -1,0 +1,42 @@
+
+<nav style="background-color: #004173; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box; margin: 0;">
+    <!-- Logo de la empresa -->
+    <div>
+        <a href="/">
+            <img src="/static/images/Logo0.jpg" alt="Logo Bytebooks" style="width: 85px; height: 75px; border-radius: 25%;">
+        </a>
+    </div>
+
+    <!-- Menú de navegación -->
+    <ul style="list-style: none; display: flex; margin: 0; padding: 0; justify-content: flex-start; flex-grow: 1;">
+        <li style="margin: 0 15px;">
+            <a href="{{ url_for('user.index') }}" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Inicio</a>
+        </li>
+        <li style="margin: 0 15px;">
+            <a href="{{ url_for('user.view_books') }}" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Volver atras</a>
+        </li>
+        <li style="margin: 0 15px;">
+            <a href="{{ url_for('byte.logout') }}" style="text-decoration: none; color: white; font-weight: bold; padding: 5px 10px; transition: background-color 0.3s;">Cerrar sesión</a>
+        </li>
+    </ul>
+</nav>
+
+<style>
+    /* Efecto hover para los enlaces */
+    nav ul li a:hover {
+        background-color: #005a99; /* Un azul más claro */
+        border-radius: 5px; /* Bordes redondeados para el efecto */
+    }
+
+    /* Asegurar que no haya márgenes en el body y html */
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Elimina márgenes en el contenedor */
+    nav {
+        margin: 0;
+        padding: 0;
+    }
+</style>

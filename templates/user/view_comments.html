@@ -1,3 +1,6 @@
+
+
+{% include 'user/commentes_Cabecera.html' %}
 <!-- view_comments.html -->
 <h2>Comentarios del libro: {{ libro.nombre_libro }}</h2>
 
@@ -20,3 +23,6 @@
 </form>
 
 <a href="{{ url_for('user.index') }}">Inicio</a>
+
+
+{% include 'user/Pie.html' %}

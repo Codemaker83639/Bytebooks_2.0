@@ -31,7 +31,7 @@ def index():
         # Redirigir al login si no está autenticado
         return redirect(url_for('byte.login'))
     # Mostrar un mensaje de bienvenida con el nombre de usuario
-    return redirect(url_for('user.index'))
+    return redirect(url_for('byte.welcome'))
 
 if __name__ == '__main__':
     # Crear las tablas de la base de datos si no existen

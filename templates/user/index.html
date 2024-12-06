@@ -107,13 +107,13 @@
                 <!-- Aquí va tu contenido principal -->
                 <div class="p-5 bg-light">
                     <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
-                        <h1 class="display-3">Bienvenid@ a Bytebooks</h1>
+                        <h1 class="display-3"> {{ user.nombre }} a Bytebooks</h1>
                         <p class="lead">La plataforma ideal para descargar guías de programación.</p>
                         <hr class="my-2">
                         <p>Explora nuestra biblioteca de recursos gratuitos.</p>
                         <p class="lead">
-                            <a class="btn btn-success btn-lg rounded-btn" href="/byte/login" role="button">
-                                Iniciar sesion
+                            <a class="btn btn-success btn-lg rounded-btn" href="{{ url_for('user.book_likes') }}" role="button">
+                                Ver Guías
                             </a>
                         </p>
 

@@ -47,7 +47,8 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .table th, .table td {
+        .table th,
+        .table td {
             vertical-align: middle;
         }
 
@@ -117,18 +118,18 @@
                             <td>{{ libro.nombre_libro }}</td>
                             <td>{{ libro.categoria }}</td>
                             <td>
-                                <img src="{{ url_for('static', filename='uploads/' + libro.imagen) }}" 
-                                     alt="{{ libro.nombre_libro }}" style="width: 100px;">
+                                <img src="{{ url_for('static', filename='uploads/' + libro.imagen) }}"
+                                    alt="{{ libro.nombre_libro }}" style="width: 100px;">
                             </td>
                             <td><a href="{{ libro.url }}" target="_blank" class="text-primary">{{ libro.url }}</a></td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <form action="{{ url_for('user.like_book', libro_id=libro.id_libro) }}" 
-                                          method="POST" class="d-inline">
+                                    <form action="{{ url_for('user.like_book', libro_id=libro.id_libro) }}"
+                                        method="POST" class="d-inline">
                                         <button type="submit" class="btn btn-success">Like</button>
                                     </form>
-                                    <a href="{{ url_for('user.view_comments', libro_id=libro.id_libro) }}" 
-                                       class="btn btn-info">Ver Comentarios</a>
+                                    <a href="{{ url_for('user.view_comments', libro_id=libro.id_libro) }}"
+                                        class="btn btn-info">Ver Comentarios</a>
                                 </div>
                             </td>
                         </tr>

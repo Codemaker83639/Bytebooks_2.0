@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, session
 from routes.user_routes import user_bp
 from routes.admin_routes import admin_bp
 from routes.byte_routes import byte_bp
-from models import db
+from models import db, Usuario
 import os
 from dotenv import load_dotenv
 

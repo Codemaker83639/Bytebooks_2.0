@@ -26,7 +26,10 @@ def login():
             session['user_id'] = user.id
             session['username'] = user.nombre  # Opcional: guarda el nombre del usuario
             flash('Inicio de sesión exitoso', 'success')
-            return redirect(url_for('byte.index'))  # Redirige a la función index del blueprint 'byte'
+            if user.is_admin:
+                return redirect(url_for('admin.dashboard'))  # Redirige al dashboard del admin
+            else:
+                return redirect(url_for('byte.index'))  # Redirige al dashboard del usuario normal
         else:
             flash('Correo o contraseña incorrectos', 'danger')
 
@@ -62,5 +65,7 @@ def logout():
     session.pop('user_id', None)
     flash('Has cerrado sesión', 'info')
     return redirect(url_for('byte.login'))
+
+
 
 

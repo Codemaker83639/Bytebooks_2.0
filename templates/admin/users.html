@@ -60,6 +60,7 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Correo</th>
+                        <th>tipo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,7 @@
                         <td>{{ usuario.id }}</td>
                         <td>{{ usuario.nombre }}</td>
                         <td>{{ usuario.correo }}</td>
+                        <td>{{ usuario.is_admin }}</td>
                     </tr>
                     {% else %}
                     <tr>

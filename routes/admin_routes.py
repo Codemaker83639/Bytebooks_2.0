@@ -63,7 +63,4 @@ def add_book():
     return render_template('add_book.html')
 
 
-@admin_bp.route('/admin_book_likes')
-def admin_book_likes():
-    return render_template('admin_book_likes.html')
 

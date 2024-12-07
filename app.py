@@ -28,10 +28,22 @@ app.register_blueprint(byte_bp, url_prefix='/byte')
 @app.route('/')
 def index():
     if 'user_id' not in session:
-        # Redirigir al login si no está autenticado
+        # Redirigir al login si el usuario no está autenticado
         return redirect(url_for('byte.login'))
-    # Mostrar un mensaje de bienvenida con el nombre de usuario
-    return redirect(url_for('byte.welcome'))
+
+    # Obtener el usuario desde la base de datos
+    user = Usuario.query.get(session['user_id'])
+    if not user:
+        # Si el usuario no existe en la base de datos, cerrar sesión
+        session.pop('user_id', None)
+        return redirect(url_for('login'))
+
+    if user.is_admin:
+        # Si es administrador, redirigir al panel de admin
+        return redirect(url_for('admin.dashboard'))
+    else:
+        # Si no es administrador, redirigir al dashboard de usuario
+        return redirect(url_for('user.index'))
 
 if __name__ == '__main__':
     # Crear las tablas de la base de datos si no existen

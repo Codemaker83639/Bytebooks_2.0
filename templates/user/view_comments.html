@@ -1,28 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentarios del Libro</title>
+    <link rel="icon" href="/static/images/Logoi.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-{% include 'user/commentes_Cabecera.html' %}
-<!-- view_comments.html -->
-<h2>Comentarios del libro: {{ libro.nombre_libro }}</h2>
+    <style>
+        /* Estilización personalizada */
+        body {
+            background-image: url('/static/images/Fondo.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
 
-<!-- Mostrar los comentarios -->
-<ul>
-    {% for comentario in comentarios %}
-    <li>
-        {{ comentario.comentario }} <br>
-        <small>{{ comentario.fecha_hora.strftime('%Y-%m-%d %H:%M') }}</small>
-    </li>
-    {% else %}
-    <li>No hay comentarios para este libro.</li>
-    {% endfor %}
-</ul>
+        .content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
 
-<!-- Formulario para agregar un comentario -->
-<form action="{{ url_for('user.add_comment', libro_id=libro.id_libro) }}" method="POST">
-    <textarea name="comentario" placeholder="Escribe tu comentario" required></textarea>
-    <button type="submit">Agregar comentario</button>
-</form>
+        .bg-comments {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
 
-<a href="{{ url_for('user.index') }}">Inicio</a>
+        .comment-box {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 5px solid #004173;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
 
+        .form-control {
+            border-radius: 8px;
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
 
-{% include 'user/Pie.html' %}
+        footer {
+            background-color: #004173;
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Estilizar la línea horizontal */
+        hr {
+            border: none;
+            height: 2px;
+            background-color: #004173;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'user/comments_Cabecera.html' %}
+
+    <div class="content container mt-5">
+        <div class="bg-comments">
+            <h2 class="text-center text-primary mb-4">Comentarios sobre el libro: {{ libro.nombre_libro }}</h2>
+            
+            <!-- Línea horizontal debajo del título -->
+            <hr>
+            <br>
+            
+            <!-- Mostrar comentarios -->
+            <div class="comments-section mb-4">
+                {% for comentario in comentarios %}
+                <div class="comment-box">
+                    <p class="mb-1">{{ comentario.comentario }}</p>
+                    <small class="text-muted">Publicado el: {{ comentario.fecha_hora.strftime('%Y-%m-%d %H:%M') }}</small>
+                </div>
+                {% else %}
+                <div class="comment-box text-center">
+                    <p class="text-muted">No hay comentarios para este libro.</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Formulario para agregar un comentario -->
+            <div class="comment-form mt-3">
+                <form action="{{ url_for('user.add_comment', libro_id=libro.id_libro) }}" method="POST">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="comentario" placeholder="Escribe tu comentario aquí..." rows="3" required></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success">Enviar Comentario</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+    {% include 'user/Pie.html' %}
+
+</body>
+
+</html>

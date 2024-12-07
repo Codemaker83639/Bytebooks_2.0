@@ -29,12 +29,17 @@
 
         /* Tarjetas de libros */
         .card {
-            margin-bottom: 20px; /* Espacio entre cada tarjeta hacia abajo */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            /* Espacio entre cada tarjeta hacia abajo */
             border: none;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
             border-radius: 10px;
             height: 100%;
+            /* Altura completa para ajustar el diseño */
         }
 
         .card:hover {
@@ -43,13 +48,17 @@
 
         /* Ajuste de imágenes dentro de las tarjetas */
         .card-img-top {
-            height: 250px; /* Altura ajustada */
+            height: 250px;
+            /* Altura ajustada */
             object-fit: contain;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
 
         .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             background-color: rgba(245, 245, 220, 0.9);
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
@@ -84,8 +93,8 @@
             margin-bottom: 15px !important;
         }
 
-                /* Estilo para el fondo blanco con la línea negra */
-                .p-5.bg-light {
+        /* Estilo para el fondo blanco con la línea negra */
+        .p-5.bg-light {
             background-color: #f8f9fa;
             /* Fondo blanco */
             border: 2px solid black;
@@ -105,23 +114,24 @@
             <div class="p-5 bg-light">
                 <h1 class="text-center mb-4 text-primary">Libros</h1>
                 <br>
-                <div class="row gy-4 "> <!-- gy-4 para crear un espacio entre filas -->
+                <div class="row gy-4"> <!-- gy-4 para crear un espacio entre filas -->
                     {% for libro in libros %}
-                    <div class="col-md-4 d-flex align-items-stretch my-3 "> <!-- Espacio vertical ajustado -->
-                        <div class="card ">
-                            <img src="{{ url_for('static', filename='uploads/' + libro.imagen) }}" 
-                                 alt="{{ libro.nombre_libro }}" 
-                                 class="card-img-top">
+                    <div class="col-md-4 d-flex my-3"> <!-- Elimina align-items-stretch y usa solo d-flex -->
+                        <div class="card flex-fill h-100"> <!-- flex-fill y h-100 para igualar alturas -->
+                            <img src="{{ url_for('static', filename='uploads/' + libro.imagen) }}"
+                                alt="{{ libro.nombre_libro }}" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">{{ libro.nombre_libro }}</h5>
                                 <p class="card-text">Categoría: {{ libro.categoria }}</p>
-                                <a href="{{ libro.url }}" target="_blank" class="btn btn-primary d-block mb-2">Descargar</a>
+                                <a href="{{ libro.url }}" target="_blank"
+                                    class="btn btn-primary d-block mb-2">Descargar</a>
                                 <div class="d-flex justify-content-between">
-                                    <form action="{{ url_for('user.like_book', libro_id=libro.id_libro) }}" method="POST" class="d-inline">
+                                    <form action="{{ url_for('user.like_book', libro_id=libro.id_libro) }}"
+                                        method="POST" class="d-inline">
                                         <button type="submit" class="btn btn-success">Like</button>
                                     </form>
-                                    <a href="{{ url_for('user.view_comments', libro_id=libro.id_libro) }}" 
-                                       class="btn btn-info">Ver Comentarios</a>
+                                    <a href="{{ url_for('user.view_comments', libro_id=libro.id_libro) }}"
+                                        class="btn btn-info">Ver Comentarios</a>
                                 </div>
                             </div>
                         </div>

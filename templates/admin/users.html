@@ -41,30 +41,11 @@
             background-color: #004173;
             color: white;
         }
-
-        /* Botones */
-        .btn-action {
-            font-size: 14px;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-delete {
-            background-color: #dc3545;
-            border: none;
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background-color: #c82333;
-            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.4);
-        }
     </style>
 </head>
 
 <body>
-    
+
     {% include 'admin/Cabecera.html' %}
     <br>
     <br>
@@ -79,7 +60,6 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Correo</th>
-                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,13 +68,10 @@
                         <td>{{ usuario.id }}</td>
                         <td>{{ usuario.nombre }}</td>
                         <td>{{ usuario.correo }}</td>
-                        <td>
-                            <a href="#" class="btn btn-delete btn-action">Eliminar</a>
-                        </td>
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="4">No hay usuarios registrados.</td>
+                        <td colspan="3">No hay usuarios registrados.</td>
                     </tr>
                     {% endfor %}
                 </tbody>

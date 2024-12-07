@@ -27,37 +27,52 @@
             flex-direction: column;
         }
 
-        /* Pie de página */
-        footer {
-            background-color: #004173;
-            color: white;
-            text-align: center;
-            font-size: 0.9rem;
-            padding: 10px 0;
-            margin-top: auto;
-        }
-
-        /* Tarjetas y tablas */
-        .table-container {
-            margin: 50px auto;
-            background-color: rgba(245, 245, 220, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 1200px;
+        /* Tarjetas de libros */
+        .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            /* Espacio entre cada tarjeta hacia abajo */
+            border: none;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+            height: 100%;
+            /* Altura completa para ajustar el diseño */
         }
 
-        .table th, .table td {
-            vertical-align: middle;
+        .card:hover {
+            transform: translateY(-5px);
         }
 
-        .table thead {
-            background-color: #004173;
-            color: white;
+        /* Ajuste de imágenes dentro de las tarjetas */
+        .card-img-top {
+            height: 250px;
+            /* Altura ajustada */
+            object-fit: contain;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
 
-        .table tbody tr:hover {
-            background-color: #f2f2f2;
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: rgba(245, 245, 220, 0.9);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        /* Títulos y textos */
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #555;
         }
 
         /* Botones */
@@ -72,23 +87,23 @@
             border-color: #005a99;
         }
 
-        .btn-success {
-            transition: all 0.3s ease;
+        /* Espacio adicional vertical para evitar que las tarjetas se solapen */
+        .my-3 {
+            margin-top: 15px !important;
+            margin-bottom: 15px !important;
         }
 
-        .btn-success:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
+        /* Estilo para el fondo blanco con la línea negra */
+        .p-5.bg-light {
+            background-color: #f8f9fa;
+            /* Fondo blanco */
+            border: 2px solid black;
+            /* Línea negra alrededor */
+            border-radius: 10px;
+            /* Bordes redondeados */
         }
 
-        .btn-info {
-            transition: all 0.3s ease;
-        }
-
-        .btn-info:hover {
-            background-color: #17a2b8;
-            border-color: #138496;
-        }
+        
     </style>
 </head>
 
@@ -97,62 +112,39 @@
     <br>
     <br>
     <div class="content">
-        <div class="container table-container">
-            <h1 class="text-center mb-4 text-primary">Libros</h1>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Imagen</th>
-                            <th>URL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for libro in libros %}
-                        <tr>
-                            <td>{{ libro.id_libro }}</td>
-                            <td>{{ libro.nombre_libro }}</td>
-                            <td>{{ libro.categoria }}</td>
-                            <td>
-                                <img src="{{ url_for('static', filename='uploads/' + libro.imagen) }}" 
-                                     alt="{{ libro.nombre_libro }}" style="width: 100px;">
-                            </td>
-                            <td><a href="{{ libro.url }}" target="_blank" class="text-primary">{{ libro.url }}</a></td>
-                            <td>
-                                <div class="d-flex justify-content-center gap-2">
-                                    <form action="{{ url_for('user.like_book', libro_id=libro.id_libro) }}" 
-                                          method="POST" class="d-inline">
+        <div class="container">
+            <div class="p-5 bg-light">
+                <h1 class="text-center mb-4 text-primary">Libros</h1>
+                <br>
+                <div class="row gy-4"> <!-- gy-4 para crear un espacio entre filas -->
+                    {% for libro in libros %}
+                    <div class="col-md-4 d-flex my-3"> <!-- Elimina align-items-stretch y usa solo d-flex -->
+                        <div class="card flex-fill h-100"> <!-- flex-fill y h-100 para igualar alturas -->
+                            <img src="{{ url_for('static', filename='uploads/' + libro.imagen) }}"
+                                alt="{{ libro.nombre_libro }}" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ libro.nombre_libro }}</h5>
+                                <p class="card-text">Categoría: {{ libro.categoria }}</p>
+                                <a href="{{ libro.url }}" target="_blank"
+                                    class="btn btn-primary d-block mb-2">Descargar</a>
+                                <div class="d-flex justify-content-between">
+                                    <form action="{{ url_for('user.like_book', libro_id=libro.id_libro) }}"
+                                        method="POST" class="d-inline">
                                         <button type="submit" class="btn btn-success">Like</button>
                                     </form>
-                                    <a href="{{ url_for('user.view_comments', libro_id=libro.id_libro) }}" 
-                                       class="btn btn-info">Ver Comentarios</a>
+                                    <a href="{{ url_for('user.view_comments', libro_id=libro.id_libro) }}"
+                                        class="btn btn-info">Ver Comentarios</a>
                                 </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
     {% include 'user/Pie.html' %}
 </body>
 

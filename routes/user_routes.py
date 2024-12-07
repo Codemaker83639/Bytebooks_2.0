@@ -3,11 +3,31 @@ from models import db, Libro, Usuario, Ranking, Comentario
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash
 from datetime import datetime
+from functools import wraps
 
 
 user_bp = Blueprint('user', __name__, template_folder='../templates/user')
 
+def user_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Verificar si el usuario está autenticado
+        if 'user_id' not in session:
+            return redirect(url_for('byte.login'))  # Redirige al login si no está autenticado
+        
+        # Verificar si el usuario es un administrador
+        user = Usuario.query.get(session['user_id'])
+        if not user or user.is_admin:
+            # Si es administrador, redirigir al dashboard de administrador
+            return redirect(url_for('admin.dashboard'))
+        
+        # Si es un usuario regular, permitir el acceso
+        return f(*args, **kwargs)
+    
+    return decorated_function
+
 @user_bp.route('/')
+@user_required
 def index():
     user_id = session.get('user_id')  # Obtener el ID del usuario desde la sesión
 
@@ -29,6 +49,7 @@ def index():
 
 
 @user_bp.route('/view_books')
+@user_required
 def view_books():
     libros = Libro.query.all()  # Suponiendo que has movido el modelo a Usuario
     return render_template('user/view_books.html', libros=libros)
@@ -36,6 +57,7 @@ def view_books():
 
 
 @user_bp.route('/like_book/<int:libro_id>', methods=['POST'])
+@user_required
 def like_book(libro_id):
     # Verifica si el usuario está en la sesión
     if 'user_id' not in session:
@@ -71,6 +93,7 @@ def like_book(libro_id):
     return redirect(url_for('user.view_books'))
 
 @user_bp.route('/book_likes', methods=['GET'])
+@user_required
 def book_likes():
     # Consulta para contar likes por libro
     likes_by_book = (
@@ -89,6 +112,7 @@ def book_likes():
 
 
 @user_bp.route('/view_comments/<int:libro_id>', methods=['GET'])
+@user_required
 def view_comments(libro_id):
     # Obtén el libro de la base de datos
     libro = Libro.query.get_or_404(libro_id)
@@ -100,6 +124,7 @@ def view_comments(libro_id):
 
 
 @user_bp.route('/add_comment/<int:libro_id>', methods=['POST'])
+@user_required
 def add_comment(libro_id):
     if 'user_id' not in session:
         flash("Debes iniciar sesión para comentar.", 'danger')
@@ -124,6 +149,7 @@ def add_comment(libro_id):
 
 
 @user_bp.route('/user_nosotros')
+@user_required
 def user_nosotros():
     return render_template('user_nosotros.html')
 

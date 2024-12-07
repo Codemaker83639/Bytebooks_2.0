@@ -1,11 +1,29 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from werkzeug.utils import secure_filename
+from functools import wraps
 import os
 from models import db, Usuario, Libro
 
 UPLOAD_FOLDER = 'static/uploads'
 admin_bp = Blueprint('admin', __name__, template_folder='../templates/admin')
 
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Verificar si el usuario está autenticado
+        if 'user_id' not in session:
+            return redirect(url_for('byte.login'))  # Redirige al login si no está autenticado
+        
+        # Verificar si el usuario es administrador
+        user = Usuario.query.get(session['user_id'])
+        if not user or not user.is_admin:
+            # Redirigir al dashboard de usuario si no es administrador
+            return redirect(url_for('user.index'))
+        
+        # Si es administrador, permitir el acceso
+        return f(*args, **kwargs)
+    return decorated_function
 
 # Función para verificar si la extensión del archivo es válida
 def allowed_file(filename):
@@ -14,17 +32,20 @@ def allowed_file(filename):
 
 # Ruta para el dashboard
 @admin_bp.route('/')
+@admin_required
 def dashboard():
     return render_template('dashboard.html')
 
 # Ruta para mostrar la lista de usuarios
 @admin_bp.route('/users')
+@admin_required
 def users():
     usuarios = Usuario.query.all()
     return render_template('users.html', usuarios=usuarios)
 
 # Ruta para agregar un libro (función de administrador)
 @admin_bp.route('/add_book', methods=['GET', 'POST'])
+@admin_required
 def add_book():
     if request.method == 'POST':
         nombre_libro = request.form['nombre_libro']
@@ -61,9 +82,3 @@ def add_book():
             return redirect(url_for('admin.dashboard'))  # Redirige al dashboard
 
     return render_template('add_book.html')
-
-
-@admin_bp.route('/admin_book_likes')
-def admin_book_likes():
-    return render_template('admin_book_likes.html')
-
